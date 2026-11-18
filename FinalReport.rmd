@@ -44,17 +44,62 @@ Treatment is categorical, and infected is categorical. Therefore we use a cat~ca
 barchartGC(~treatment + infected,data=triUmp)
 barchartGC(~treatment + infected,data=triUmp, type="percent")
 
-```
+```  
+
+The graph suggests that a slightly higher number of people who take the placebo instead of the drug end up with aides.
+
+Since we're only focused on the results of females we can also check this:
+
+```{r}
+barchartGC(~treatment + gender,data=triUmp)
+barchartGC(~treatment + gender,data=triUmp, type="percent")
+
+```  
+
+As the previous graph suggests, a slightly higher number of people who take the placebo instead of the drug end up with aides. There is also a slightly higher amount of females in this study.
 
 ### Numerical Descriptive Results
 
+```{r}
+table1 <- xtabs(~treatment + infected, data=triUmp)
+rowPerc(table1)
+colPerc(table1)
+```
+
+From these results we can see that out of a 100 infected with aids, 40.87 had taken the drug and 59.13 had not. This suggests that individuals who had not taken the drug have a very slightly higher chance of being infected with aids.
+
+Once again we can check females as well:
+
+```{r}
+table2 <- xtabs(~infected + gender, data=triUmp)
+rowPerc(table2)
+colPerc(table2)
+```
+```{r}
+table2 <- xtabs(~treatment + gender, data=triUmp)
+rowPerc(table2)
+colPerc(table2)
+```
+
+out of 100 females, 48.39 have had the treatment and 51.61 have not. Additionally, out of both males and females with aids, females accounted for 34.49 out of 100%. So when we are accounting for this study's entire population of individuals infected with aids, we can divide by 34.49 to infer what percentage are female.
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
 ## Inferential Results
 
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+
+p value is 0.0000002761 which is less than 0.05. So we can reject the null hypothesis and conclude that the treatment is effective in some way at preventing aids in females.
+
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
 
-
 # Discussion and Conclusion
+
+Data from triUmp. Original question is: Is this drug effective in preventing aides on females specifically?
+
+We reject the null hypothesis and conclude that there is some relationship between the treatment drug and females infected with aides. More specifically, that females who have taken the drug have a slightly lower chance of being infected. The graphical summary and numerical results show that there are slightly fewer individuals out of a hundred who have taken the drug are infected, when compared to individuals that havent taken the drug and are infected. Because there are statistically more females than males in the study, we can infer that the results are still accurate when only focusing on females.
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
