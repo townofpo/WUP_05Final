@@ -58,8 +58,6 @@ Treatment is categorical, and infected is categorical. Therefore we use a cat~ca
 barchartGC(~treatment + infected,data=femaleData)
 barchartGC(~treatment + infected,data=femaleData, type="percent")
 
-
-
 ```  
 
 This graph suggests that females who have taken the drug have a slightly higher percentage of getting aides. By filtering out males from the data, we have ensured that this is only data from female participants in the study, and checking the study *without* the filtering shows that the results are different then; essentially this just confirms the filtering was actually done right.
@@ -67,28 +65,12 @@ This graph suggests that females who have taken the drug have a slightly higher 
 ### Numerical Descriptive Results
 
 ```{r}
-table1 <- xtabs(~treatment + infected, data=triUmp)
+table1 <- xtabs(~treatment + infected, data=femaleData)
 rowPerc(table1)
 colPerc(table1)
 ```
 
-From these results we can see that out of a 100 infected with aids, 40.87 had taken the drug and 59.13 had not. This suggests that individuals who had not taken the drug have a very slightly higher chance of being infected with aids.
-
-Once again we can check females as well:
-
-```{r}
-table2 <- xtabs(~infected + gender, data=triUmp)
-rowPerc(table2)
-colPerc(table2)
-```
-```{r}
-table2 <- xtabs(~treatment + gender, data=triUmp)
-rowPerc(table2)
-colPerc(table2)
-```
-
-out of 100 females, 48.39 have had the treatment and 51.61 have not. Additionally, out of both males and females with aids, females accounted for 34.49 out of 100%. So when we are accounting for this study's entire population of individuals infected with aids, we can divide by 34.49 to infer what percentage are female.
-<!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+According to the descriptive results, which have been once again filtered to only show females within the data, out of 100 female participants infected with aids roughly 59% of them had taken the drug, and 41% of them had taken the placebo, meaning there is a slightly higher amount of participants who have taken the drug and also have aids. Oh noes!!!
 
 ## Inferential Results
 
@@ -98,7 +80,7 @@ chisqtestGC(table1)
 fisher.test(table1)
 ```
 
-p value is 0.0000002761 which is less than 0.05. So we can reject the null hypothesis and conclude that the treatment is effective in some way at preventing aids in females!
+According to the Chi-square test, uhhh I dunno :-(
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
 
