@@ -12,6 +12,9 @@ require(mosaic)
 triUmp <-read.csv(file="triUmpsal.csv",header=TRUE)
 ```
 
+
+
+
 # Introduction
 
 <!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?.  If you skimp in this section expect to be marked down in your grade. Paint a picture of the project a couple of paragraphs is expected!-->
@@ -23,6 +26,17 @@ $H_0$ : No, drug is not effective at preventing aides in females.
 $H_A$ : YES, drug is effective at preventing aides in females.
 
 (A new  preventative aides drug (triUmpsal) is under test in clinical trials. Consider only the females, does this drug seem effective?  Hint - use dplyr to obtain that subpopulation with the filter command.)
+
+```{r}
+femaleData <- triUmp %>%
+  filter(gender == "F")
+
+names(femaleData)
+
+table(femaleData$treatment)
+```
+
+
 
 # Methods
 
@@ -41,22 +55,14 @@ Treatment is categorical, and infected is categorical. Therefore we use a cat~ca
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question. Bottom line is to explain the features of the graph that are relevant to conforming or departing to what is expected by your null hypothesis !-->
 
 ```{r}
-barchartGC(~treatment + infected,data=triUmp)
-barchartGC(~treatment + infected,data=triUmp, type="percent")
+barchartGC(~treatment + infected,data=femaleData)
+barchartGC(~treatment + infected,data=femaleData, type="percent")
+
+
 
 ```  
 
-The graph suggests that a slightly higher number of people who take the placebo instead of the drug end up with aides.
-
-Since we're only focused on the results of females we can also check this:
-
-```{r}
-barchartGC(~treatment + gender,data=triUmp)
-barchartGC(~treatment + gender,data=triUmp, type="percent")
-
-```  
-
-As the previous graph suggests, a slightly higher number of people who take the placebo instead of the drug end up with aides. There is also a slightly higher amount of females in this study.
+This graph suggests that females who have taken the drug have a slightly higher percentage of getting aides. By filtering out males from the data, we have ensured that this is only data from female participants in the study, and checking the study *without* the filtering shows that the results are different then; essentially this just confirms the filtering was actually done right.
 
 ### Numerical Descriptive Results
 
